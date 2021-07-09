@@ -36,10 +36,10 @@ void SnapshotRecorder::WriteSnapshot(double time, size_t n_step)
   //      begins. This needs to be more thoroughly thought out.
 
   //======================================== Loop over field functions
-  for (const auto &ff : field_functions)
+  for (const auto& ff : field_functions)
   {
     //============================== Loop over vector elements
-    for (auto &v : *ff->field_vector_local)
+    for (auto& v : *ff->field_vector_local)
       outfile << v << " ";
   }
   outfile.close();
@@ -73,7 +73,7 @@ void SnapshotRecorder::WriteGrid()
   //open the output file
   std::stringstream filename;
   filename << output_directory << "/grid.txt";
-  std::ofstream  outfile = OpenFile(filename, 0);
+  std::ofstream outfile = OpenFile(filename, 0);
 
   //get a discretization
   const auto ff = field_functions[0];
@@ -129,10 +129,11 @@ OpenFile(std::stringstream& filename, size_t n_step)
 /**Static method to register the Lua macros to the console.*/
 void SnapshotRecorder::RegisterLuaMacros()
 {
-    ChiConsole& console = ChiConsole::GetInstance();
+  ChiConsole& console = ChiConsole::GetInstance();
 
-    auto L = console.consoleState;
-    #include "ChiMacros/lua_register_macro.h"
-    #include "lua/lua_register.h"
+  auto L = console.consoleState;
+
+  #include "ChiMacros/lua_register_macro.h"
+  #include "lua/lua_register.h"
 }
 
