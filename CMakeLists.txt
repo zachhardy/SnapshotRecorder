@@ -19,14 +19,14 @@ if (NOT DEFINED CMAKE_RUNTIME_OUTPUT_DIRECTORY)
 endif()
 
 #================================================ Include macros
-include(${CHI_TECH_DIR}/ChiResources/Macros/Downstream.cmake)
+include("${CHI_TECH_DIR}/ChiResources/Macros/Downstream.cmake")
 
 #================================================ Default include directories
 include_directories("${PROJECT_SOURCE_DIR}/SnapshotRecorder")
 
 #================================================ Define source directories
 set(SOURCES "lib.cc")
-add_subdirectory(${PROJECT_SOURCE_DIR}/SnapshotRecorder)
+add_subdirectory("${PROJECT_SOURCE_DIR}/SnapshotRecorder")
 
 #================================================ Create executable
 add_library(SnapshotLib ${SOURCES})
