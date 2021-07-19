@@ -18,6 +18,12 @@ void SnapshotRecorder::WriteSnapshot(double time)
 
   const bool initialize = time == 0.0;
 
+  // TODO: Eventually, it would be nice to export each snapshot
+  //       of each field function to VTK files. This would
+  //       necessitate having separate directories for each field
+  //       function and a naming convention for the separate output
+  //       files from each time step.
+
   //======================================== Loop over field functions
   for (const auto& ff : field_functions)
   {
