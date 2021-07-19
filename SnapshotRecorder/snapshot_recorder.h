@@ -17,14 +17,10 @@ public:
 public:
   static void RegisterLuaMacros();
 
-  void WriteSnapshot(double time, size_t n_step);
-  void WriteTime(double time, size_t n_step) const;
-  void WriteGrid();
+  void WriteSnapshot(double time);
 
 private:
-  static std::ofstream OpenFile(std::stringstream& filename,
-                                size_t n_step);
-
+  static std::ofstream OpenFile(std::string& filename, bool initialize);
 };
 
 #endif //SNAPSHOT_RECORDER_H
