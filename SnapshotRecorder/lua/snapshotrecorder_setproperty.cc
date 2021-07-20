@@ -35,6 +35,6 @@ int chiSnapshotRecorderAddFieldFunction(lua_State* L)
   snapshot_recorder.field_functions.push_back(ff);
   chi_log.Log(LOG_0)
       << __FUNCTION__ << ": Field function with index "
-      << ff_index << " added to SnapshotRecorder.";
+      << ff_index << " added to SnapshotRecorder.\n\n";
   return 0;
 }
