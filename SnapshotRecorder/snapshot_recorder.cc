@@ -27,13 +27,29 @@ void SnapshotRecorder::WriteSnapshot(double time)
   //======================================== Loop over field functions
   for (const auto& ff : field_functions)
   {
-    std::string filename = output_directory + "/" + ff->text_name;
+    std::string filename = output_directory + "/" +
+                           ff->text_name + ".txt";
     std::ofstream file = OpenFile(filename, initialize);
-
-    //============================== Loop over vector elements
     file << std::setprecision(8) << time << " ";
-    for (auto& v : *ff->field_vector_local)
-      file << std::setprecision(12) << v << " ";
+
+    const auto& grid = ff->grid;
+    const auto& discretization = ff->spatial_discretization;
+    const auto& vector = ff->field_vector_local;
+    const auto& uk_man = ff->unknown_manager;
+    const auto& unknown_id = ff->ref_variable;
+    const auto& component_id = ff->ref_component;
+
+    for (const auto& cell : grid->local_cells)
+    {
+      const auto& num_nodes = discretization->GetCellNumNodes(cell);
+
+      for (int i = 0; i < num_nodes; ++i)
+      {
+        const size_t ir =
+            discretization->MapDOFLocal(cell, i, uk_man, unknown_id, component_id);
+        file << std::setprecision(12) << (*vector)[ir] << " ";
+      }
+    }
     file << std::endl;
     file.close();
   }
